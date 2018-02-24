@@ -1,0 +1,10 @@
+---
+- name: Install Docker (Ubuntu)
+  # cf.: https://github.com/angstwad/docker.ubuntu
+  hosts: all # docker (todo)
+  become: yes
+  vars:
+    docker_group_members:
+      - "{{ ansible_user }}"
+  roles:
+    - angstwad.docker_ubuntu

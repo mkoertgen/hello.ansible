@@ -1,0 +1,14 @@
+---
+# bootstrap python for ansible on ubuntu, cf.:
+# - https://gist.github.com/gwillem/4ba393dceb55e5ae276a87300f6b8e6f#gistcomment-2292405
+- name: Install Python
+  hosts: all
+  gather_facts: false
+  become: yes
+  pre_tasks:
+  - name: Install python2 for Ansible
+    raw: bash -c "test -e /usr/bin/python || (apt -qqy update && apt install -qqy python-simplejson)"
+    register: test
+    changed_when: test.stdout
+  - name: Gathering Facts
+    setup:
