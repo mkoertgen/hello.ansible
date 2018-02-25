@@ -10,7 +10,7 @@
   vars:
     # cf.: https://github.com/riemers/ansible-gitlab-runner/blob/master/defaults/main.yml
     # TODO: get from/share with `.env`
-    gitlab_runner_coordinator_url: 'http://localhost/'
+    gitlab_runner_coordinator_url: 'http://localhost/' # TODO
     gitlab_runner_registration_token: '5JyXq88VEQNWx-12wPuR'
     gitlab_runner_description: 'Example GitLab Runner'
     gitlab_runner_tags:
