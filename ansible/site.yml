@@ -1,4 +1,5 @@
 ---
 - import_playbook: bootstrap.yml
+- import_playbook: proxy.yml
 - import_playbook: docker.yml
 - import_playbook: gitlab-runner.yml

@@ -1,0 +1,15 @@
+---
+- name: Configure proxy settings
+  hosts: all # docker (todo)
+  become: yes
+  vars:
+    # cf.: https://github.com/fahlke/ansible-role-proxy/blob/master/defaults/main.yml
+    #proxy_ensure_environment: 'present'
+    #proxy_ensure_apt: 'present'
+    #proxy_cfg_http_proxy: 'http://user:password@proxy.example.com:3128'
+    #proxy_cfg_https_proxy: 'http://user:password@proxy.example.com:3128'
+    #proxy_cfg_ftp_proxy: 'http://user:password@proxy.example.com:3128'
+    #proxy_cfg_dns_proxy: 'http://user:password@proxy.example.com:3128'
+    #proxy_cfg_no_proxy: 'localhost,127.0.0.1,::1'
+  roles:
+    - fahlke.proxy
