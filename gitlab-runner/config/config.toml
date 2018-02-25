@@ -1,0 +1,23 @@
+concurrent = 1
+check_interval = 0
+
+[[runners]]
+  name = "runner-shell"
+  url = "http://gitlab/"
+  token = "a8467e19aab34f848663e302b5af12"
+  executor = "shell"
+  [runners.cache]
+
+[[runners]]
+  name = "runner-docker"
+  url = "http://gitlab/"
+  token = "25c3f055b0e2dcd65cd25f6ef71428"
+  executor = "docker"
+  [runners.docker]
+    tls_verify = false
+    image = "alpine:3.7"
+    privileged = false
+    disable_cache = false
+    volumes = ["/cache"]
+    shm_size = 0
+  [runners.cache]

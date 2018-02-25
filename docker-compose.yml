@@ -17,15 +17,32 @@ services:
       - "80:80"
       - "443:443"
       #- "22:22
+    environment:
+      # cf.: https://gitlab.msu.edu/help/administration/environment_variables.md
+      GITLAB_HOST: ${GITLAB_HOST:-http://localhost}
+      GITLAB_ROOT_PASSWORD: ${GITLAB_ROOT_PASSWORD:-admin123}
+      GITLAB_SHARED_RUNNERS_REGISTRATION_TOKEN: ${GITLAB_SHARED_RUNNERS_REGISTRATION_TOKEN:-}
+
+      # cf.: https://docs.gitlab.com/omnibus/docker/#install-gitlab-using-docker-compose
+      #GITLAB_OMNIBUS_CONFIG: |
+      #  external_url 'https://gitlab.example.com'
+      #  # Add any other gitlab.rb configuration here, each on its own line
 
   gitlab-runner:
     image: gitlab/gitlab-runner:alpine-v10.5.0
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock"
-      - "gitlab-runner-config:/etc/gitlab-runner"
+      - "gitlab-runner-config:/etc/gitlab-runner/"
+      #- "./gitlab-runner/config:/etc/gitlab-runner/"
     depends_on:
       - gitlab
+    environment:
+      CI_SERVER_URL: ${GITLAB_HOST:-http://gitlab/}
+      RUNNER_NAME: ${GITLAB_RUNNER_NAME:-runner-shell-0}
+      REGISTRATION_TOKEN: ${GITLAB_SHARED_RUNNERS_REGISTRATION_TOKEN:-}
+      #REGISTER_NON_INTERACTIVE: 'true'
     #command: --help
+    #command: register --name runner-shell-0 --executor shell --tag-list docker,linux
 
   inspector:
     image: busybox
