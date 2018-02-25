@@ -1,0 +1,38 @@
+version: '3'
+
+volumes:
+  gitlab-config:
+  gitlab-data:
+  gitlab-log:
+  gitlab-runner-config:
+
+services:
+  gitlab:
+    image: gitlab/gitlab-ce:10.5.1-ce.0
+    volumes:
+      - "gitlab-config:/etc/gitlab"
+      - "gitlab-data:/var/opt/gitlab"
+      - "gitlab-log:/var/log/gitlab"
+    ports:
+      - "80:80"
+      - "443:443"
+      #- "22:22
+
+  gitlab-runner:
+    image: gitlab/gitlab-runner:alpine-v10.5.0
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "gitlab-runner-config:/etc/gitlab-runner"
+    depends_on:
+      - gitlab
+    #command: --help
+
+  inspector:
+    image: busybox
+    volumes:
+      - "gitlab-config:/etc/gitlab"
+      - "gitlab-data:/var/opt/gitlab"
+      - "gitlab-log:/var/log/gitlab"
+      - "gitlab-runner-config:/etc/gitlab-runner"
+      - "./inspector/tmp:/tmp/"
+    #cmd: cat /etc/gitlab-runner/config.toml
