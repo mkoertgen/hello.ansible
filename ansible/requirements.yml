@@ -1,3 +1,6 @@
 ---
 - src: angstwad.docker_ubuntu
   version: v3.4.1
+- src: riemers.gitlab-runner
+  version: v1.1.3
+

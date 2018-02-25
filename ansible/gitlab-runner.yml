@@ -1,0 +1,23 @@
+---
+- name: Install Gitlab-Runner
+  # cf. https://github.com/riemers/ansible-gitlab-runner#example-playbook
+  hosts: all # TODO
+  become: yes
+  #vars_files:
+  #  - vars/gitlab-runner.yml
+  # TODO: Should got into inventory/group_vars/gitlab-runner.
+  #  Need to figure out how to make this play well with Vagrant
+  vars:
+    # cf.: https://github.com/riemers/ansible-gitlab-runner/blob/master/defaults/main.yml
+    # TODO: get from/share with `.env`
+    gitlab_runner_coordinator_url: 'http://localhost/'
+    gitlab_runner_registration_token: '5JyXq88VEQNWx-12wPuR'
+    gitlab_runner_description: 'Example GitLab Runner'
+    gitlab_runner_tags:
+      - docker
+      - linux
+    gitlab_runner_docker_volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "/cache"
+  roles:
+    - riemers.gitlab-runner

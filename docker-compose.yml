@@ -34,6 +34,7 @@ services:
       - "/var/run/docker.sock:/var/run/docker.sock"
       - "gitlab-runner-config:/etc/gitlab-runner/"
       #- "./gitlab-runner/config:/etc/gitlab-runner/"
+      #- "./gitlab-runner/config:/etc/gitlab-runner/"
     depends_on:
       - gitlab
     environment:
