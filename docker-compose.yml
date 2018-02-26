@@ -54,3 +54,15 @@ services:
       - "gitlab-runner-config:/etc/gitlab-runner"
       - "./inspector/tmp:/tmp/"
     #cmd: cat /etc/gitlab-runner/config.toml
+
+  ansible:
+    image: williamyeh/ansible:debian9
+    environment:
+      http_proxy: ${http_proxy}
+      https_proxy: ${https_proxy}
+      no_proxy: ${no_proxy}
+    volumes:
+      - ./ansible:/projects
+    working_dir: /projects
+    command: >
+      bash -c "ansible-galaxy install -r requirements.yml -p ./roles && ansible-playbook site.yml"
