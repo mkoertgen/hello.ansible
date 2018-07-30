@@ -1,4 +1,9 @@
-version: '3'
+version: '3.4'
+
+x-proxy: &proxy
+  http_proxy: ${http_proxy}
+  https_proxy: ${https_proxy}
+  no_proxy: ${no_proxy}
 
 volumes:
   gitlab-config:
@@ -56,13 +61,21 @@ services:
     #cmd: cat /etc/gitlab-runner/config.toml
 
   ansible:
-    image: williamyeh/ansible:debian9
+    image: williamyeh/ansible:alpine3
     environment:
-      http_proxy: ${http_proxy}
-      https_proxy: ${https_proxy}
-      no_proxy: ${no_proxy}
+      <<: *proxy
     volumes:
       - ./ansible:/projects
     working_dir: /projects
-    command: >
-      bash -c "ansible-galaxy install -r requirements.yml -p ./roles && ansible-playbook site.yml"
+    command: ./deploy.sh root docker docker-test.yml -vv
+    depends_on:
+      - ubuntu
+
+  ubuntu:
+    build:
+      context: ./ubuntu
+      args:
+        <<: *proxy
+    environment:
+      <<: *proxy
+    ports: [ '2222:22' ]

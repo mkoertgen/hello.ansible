@@ -18,3 +18,8 @@ vagrant@base-debootstrap:~$ docker run --rm hello-world
 ...
 vagrant@base-debootstrap:~$ docker-compose version
 ```
+
+\*Note: Using without Vagrant\*\*
+
+There is an example for testing out simple playbooks where the `ansible` container
+executes a simple playbook `docker-test.yml` on the `ubuntu` container.
